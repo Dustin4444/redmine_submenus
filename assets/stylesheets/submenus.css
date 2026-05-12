@@ -1,0 +1,77 @@
+/* Dropdown Menu Styles for Wiki and Projects */
+.drdn {
+  line-height: 1em;
+}
+
+.drdn-content.contextual {
+  right: auto;
+  top: auto;
+  line-height: 1rem;
+  padding: 0;
+}
+
+.drdn-items a,
+.drdn-link {
+  font-size: 0.9rem;
+  font-weight: initial;
+  opacity: initial;
+}
+
+/* Table Row Indentation for Subprojects */
+.table-indent-1 { padding-left: 1.2em; }
+.table-indent-2 { padding-left: 2.4em; }
+.table-indent-3 { padding-left: 3.6em; }
+.table-indent-4 { padding-left: 4.8em; }
+.table-indent-5 { padding-left: 6.0em; }
+
+.table-bullet {
+  margin: 0 0.5em 0 -0.8em;
+}
+
+/* Macro Autocomplete Dropdown */
+#macro-autocomplete {
+  position: absolute;
+  z-index: 9999;
+  background: #fff;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  width: 360px;
+  max-height: 260px;
+  overflow-y: auto;
+  font-size: 0.875rem;
+  font-family: inherit;
+}
+
+.mac-item {
+  display: flex;
+  flex-direction: column;
+  padding: 6px 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+  gap: 2px;
+}
+
+.mac-item:last-child {
+  border-bottom: none;
+}
+
+.mac-item:hover,
+.mac-item.mac-selected {
+  background-color: #e8f0fe;
+}
+
+.mac-name {
+  font-family: monospace;
+  font-size: 0.9rem;
+  color: #1a56a0;
+  font-weight: 600;
+}
+
+.mac-desc {
+  font-size: 0.78rem;
+  color: #666;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
