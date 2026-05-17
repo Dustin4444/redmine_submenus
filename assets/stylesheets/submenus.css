@@ -37,10 +37,13 @@
   border-radius: 4px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   width: 360px;
-  max-height: 260px;
-  overflow-y: auto;
-  font-size: 0.875rem;
+  font-size: inherit;
   font-family: inherit;
+}
+
+.mac-list {
+  max-height: 220px;
+  overflow-y: auto;
 }
 
 .mac-item {
@@ -62,16 +65,27 @@
 }
 
 .mac-name {
-  font-family: monospace;
-  font-size: 0.9rem;
   color: #1a56a0;
   font-weight: 600;
 }
 
 .mac-desc {
-  font-size: 0.78rem;
+  font-size: 0.85em;
   color: #666;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.mac-detail {
+  border-top: 1px solid #ddd;
+  padding: 8px 10px;
+  font-size: 0.82em;
+  color: #444;
+  background: #f8f8f8;
+  white-space: pre-wrap;
+  max-height: 140px;
+  overflow-y: auto;
+  border-radius: 0 0 4px 4px;
+  line-height: 1.5;
 }

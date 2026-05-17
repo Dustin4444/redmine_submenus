@@ -16,11 +16,22 @@ class MacroAutocompleteHook < Redmine::Hook::ViewListener
 
   private
 
+  IMPLICIT_MACROS = [
+    { name: 'toc',         desc: 'Table of contents', detail: "Renders a table of contents for the current wiki page.\nUsage: {{toc}}" },
+    { name: 'child_pages', desc: 'List of child pages', detail: "Renders a list of child pages.\nUsage: {{child_pages}}" },
+  ].freeze
+
   def collect_macros
-    Redmine::WikiFormatting::Macros.available_macros.map do |name, macro|
-      first_line = (macro[:desc] || '').strip.split("\n").first.to_s.strip
-      { name: name.to_s, desc: first_line }
-    end.sort_by { |m| m[:name] }
+    registered = Redmine::WikiFormatting::Macros.available_macros.map do |name, macro|
+      full_desc  = (macro[:desc] || '').strip
+      first_line = full_desc.split("\n").first.to_s.strip
+      { name: name.to_s, desc: first_line, detail: full_desc }
+    end
+
+    existing_names = registered.map { |m| m[:name] }.to_set
+    implicit = IMPLICIT_MACROS.reject { |m| existing_names.include?(m[:name]) }
+
+    (registered + implicit).sort_by { |m| m[:name] }
   rescue => e
     Rails.logger.warn "[SubMenus] MacroAutocompleteHook: could not collect macros: #{e.message}"
     []

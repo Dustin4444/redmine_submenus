@@ -1,4 +1,4 @@
-class SubMenusCssHook < Redmine::Hook::ViewListener
+class SubmenusCssHook < Redmine::Hook::ViewListener
   def view_layouts_base_html_head(context = {})
     begin
       stylesheet_link_tag 'submenus.css', plugin: 'redmine_submenus'
