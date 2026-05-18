@@ -6,7 +6,7 @@ Redmine::Plugin.register :redmine_submenus do
   author 'Stefan Mischke'
   description 'Adds dropdown menus to project titles and wiki titles and provides wiki macros to easily navigate to sub projects or sub pages.'
   version '0.3.0'
-  url 'https://github.com/modoq/redmine_submenus'
+  url 'https://github.com/subversive-tools/redmine_submenus'
   author_url 'https://github.com/modoq'
 
   settings default: {
