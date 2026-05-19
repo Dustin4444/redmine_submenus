@@ -1,243 +1,72 @@
-# Redmine Sub-Menus Plugin
+# Redmine Submenus Plugin
 
-> Transform your Redmine navigation with intelligent dropdown menus and powerful portfolio management capabilities.
+![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+![Redmine](https://img.shields.io/badge/Redmine-5.0%20%7C%206.0-red.svg?logo=redmine)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Redmine Version](https://img.shields.io/badge/Redmine-4.0%2B-red.svg)](https://www.redmine.org/)
+A Redmine plugin that adds dropdown navigation to project and wiki titles, giving instant access to subprojects and wiki subpages without leaving the current context.
 
-## 🚀 What is Sub-Menus?
+> Built for teams working with complex project hierarchies who value quick navigation over cluttered menus.
 
-The Sub-Menus plugin revolutionizes how you navigate and manage projects in Redmine. What starts as enhanced navigation evolves into a comprehensive portfolio management solution.
+## Screenshots
 
-**Core Features:**
-- 🧭 **Smart Navigation**: Dropdown menus for instant access to subprojects and wiki subpages
-- 📊 **Portfolio Management**: Visual kanban boards for project organization
-- 🎯 **Flexible Views**: List, table, and kanban displays for different use cases
-- ⚡ **Interactive Controls**: Drag-and-drop project status management
-- 🔧 **Easy Integration**: Works seamlessly with existing Redmine workflows
+<img alt="Project dropdown showing subprojects with quick navigation" src=".github/images/dropdown-navigation.png" />
 
-## 📷 Screenshots
+## Features
 
-### Project Navigation with Dropdown
-![Project dropdown showing subprojects with quick navigation](https://github.com/user-attachments/assets/a22f9dc3-65c9-42e8-b7a6-2216acc74f69)
+- **Project dropdowns**: instant access to subprojects directly from the project title
+- **Wiki dropdowns**: quick navigation to child wiki pages from the current page
+- **Context-preserving**: maintains the current tab (Issues, Wiki, etc.) when navigating to a subproject
+- **Configurable symbol**: choose your own dropdown trigger character
 
-### Kanban Portfolio View
-*Visual project management with status-based organization*
+## Requirements
 
-## 🛠️ Installation
+- Redmine 5.0 or higher
 
-### Requirements
-- **Redmine**: Version 4.0.0 or higher
-- **Ruby**: Compatible with your Redmine installation
-- **Permissions**: Admin access for initial setup
+## Installation
 
-### Quick Setup
+> [!IMPORTANT]
+> The plugin directory **MUST** be named `redmine_submenus` for assets to load correctly.
 
-1. **Download & Extract**
+1. **Clone** into your plugins directory:
    ```bash
    cd /path/to/redmine/plugins
-   git clone https://github.com/modoq/redmine_submenus.git
+   git clone https://github.com/subversive-tools/redmine_submenus.git redmine_submenus
    ```
 
-2. **Restart Redmine**
-   ```bash
-   # For development
-   bundle exec rails server
+2. **Restart Redmine**.
 
-   # For production (passenger/nginx)
-   sudo systemctl restart redmine
-   ```
+## Configuration
 
-3. **Configure Plugin**
-   - Navigate to **Administration → Plugins**
-   - Click **Configure** next to "Sub-Menus"
-   - Enable desired features and customize dropdown symbol
+Navigate to **Administration > Plugins > Submenus > Configure**.
 
-### Portfolio Management Setup (Optional)
+| Option | Description | Default |
+|:---|:---|:---|
+| **Show subprojects menu** | Enable dropdown on project titles | Enabled |
+| **Show subwiki menu** | Enable dropdown on wiki page titles | Enabled |
+| **Dropdown symbol** | Trigger character shown next to titles | `»` |
 
-For kanban functionality, create a custom field:
+## Usage
 
-1. Go to **Administration → Custom Fields → Projects**
-2. Create new field with these settings:
-   - **Name**: `Project Status`
-   - **Format**: `List`
-   - **Possible values**: Add your project phases (e.g., `Planning-p`, `Development-i`, `Complete-d`)
+Once enabled, a small trigger symbol appears next to project and wiki page titles. Clicking it opens a dropdown listing all accessible subprojects or child wiki pages. Navigation preserves the current Redmine tab — if you are on the Issues tab of a parent project, clicking a subproject in the dropdown takes you to the Issues tab of that subproject.
 
-## 📖 Usage Guide
-
-### 1. Navigation Dropdowns
-
-**Project Dropdowns**
-- Appear automatically next to project titles
-- Show accessible subprojects
-- Maintain current tab context (Issues, Wiki, etc.)
-
-**Wiki Dropdowns**
-- Display on wiki pages with subpages
-- Provide quick access to child pages
-- Respect user permissions
-
-### 2. Wiki Macros
-
-#### {{subprojects}} - Project Lists & Portfolio Views
-
-**Basic Usage**
-```wiki
-{{subprojects}}
-{{subprojects(view=table)}}
-{{subprojects(view=kanban)}}
-```
-
-**Advanced Options**
-```wiki
-{{subprojects(view=table, depth=3, roles=Manager+Developer)}}
-{{subprojects(view=kanban)}}
-{{subprojects(view=list, depth=2)}}
-```
-
-**Parameters:**
-- `view`: `list` (default), `table`, or `kanban`
-- `depth`: Hierarchy levels to display in list or table view (default: 1)
-- `roles`: Show specific roles in table view (`Manager+Developer` or `all`)
-
-#### {{subpages}} - Wiki Navigation
-
-**Usage**
-```wiki
-{{subpages}}
-{{subpages(view=table, depth=2)}}
-```
-
-### 3. Kanban Portfolio Management
-
-The kanban view transforms static project lists into interactive portfolio dashboards.
-
-**Features:**
-- **Visual Organization**: Projects displayed as cards in status columns
-- **Drag & Drop**: Move projects between statuses instantly
-- **Real-time Updates**: Changes persist in Redmine database
-- **Color Coding**: Visual status indicators with customizable themes
-- **Project Details**: Cards show description, team members, and key info
-
-**Status Color Coding:**
-- 🟡 **Yellow** (`-p` suffix): Pool of ideas, backlog
-- 🔵 **Blue** (`-i` suffix): In-progress, implementation, active 
-- 🟢 **Green** (`-d` suffix): Done, deleverd, finished
-
-**Example Status Values:**
-```
-Ideas-p
-Development-i
-Testing-i
-Deployment-i
-Done-d
-```
-
-## ⚙️ Configuration
-
-### Plugin Settings
-
-Access via **Administration → Plugins → Sub-Menus → Configure**
-
-| Setting | Description | Default |
-|---------|-------------|---------|
-| Show Subprojects Menu | Enable project dropdowns | ✅ Enabled |
-| Show Subwiki Menu | Enable wiki page dropdowns | ✅ Enabled |
-| Dropdown Menu Symbol | Icon for dropdown trigger | `»` |
-
-### Custom Field Setup
-
-For portfolio management features:
-
-1. **Field Name**: Must be exactly `Project Status`
-2. **Field Type**: List
-3. **Scope**: Projects
-4. **Values**: Your workflow statuses (with optional `-p`/`-i`/`-d` suffixes)
-
-## 🎨 Customization
-
-### CSS Styling
-
-The plugin includes comprehensive CSS classes for customization:
-
-```css
-/* Dropdown menus */
-.drdn { /* Dropdown container */ }
-.drdn-trigger { /* Clickable trigger */ }
-.drdn-content { /* Dropdown content */ }
-
-/* Kanban boards */
-.kanban-board { /* Board container */ }
-.kanban-column { /* Status columns */ }
-.kanban-card { /* Project cards */ }
-
-/* Status colors */
-.meta-pool { /* Planning phase */ }
-.meta-implementation { /* Active phase */ }
-.meta-done { /* Completed phase */ }
-```
-
-### Status Suffix System
-
-Organize your workflow with intelligent status naming:
-
-- **Planning Phase**: `Research-p`, `Design-p`, `Planning-p`
-- **Implementation Phase**: `Development-i`, `Testing-i`, `Review-i`
-- **Completion Phase**: `Deployed-d`, `Closed-d`, `Archived-d`
-
-## 🔧 Troubleshooting
-
-### Common Issues
+## Troubleshooting
 
 **Dropdown not appearing?**
-- Check plugin is enabled in Administration
-- Verify user has access to subprojects/subpages
-- Ensure subprojects exist and are active
+- Verify the plugin is enabled under Administration > Plugins.
+- Check that the user has access to at least one subproject or child wiki page.
+- Ensure subprojects are active and visible.
 
-**Kanban view shows warning?**
-- Create "Project Status" custom field (exact name required)
-- Set field type to "List"
-- Add at least one possible value
+## Contributing
 
-**Drag & drop not working?**
-- Check browser JavaScript is enabled
-- Verify user has project edit permissions
-- Ensure custom field is properly configured
+Contributions are welcome — please fork the repository and open a Pull Request.
 
+1. Fork it
+2. Create your feature branch (`git checkout -b feature/my-feature`)
+3. Commit your changes
+4. Push to the branch
+5. Open a Pull Request
 
-## 🤝 Contributing
+## License
 
-We welcome contributions! Here's how to get started:
-
-1. **Fork** the repository
-2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
-3. **Commit** your changes (`git commit -m 'Add amazing feature'`)
-4. **Push** to the branch (`git push origin feature/amazing-feature`)
-5. **Open** a Pull Request
-
-### Development Setup
-
-```bash
-# Clone your fork
-git clone https://github.com/yourusername/redmine_submenus.git
-
-# Link to development Redmine
-ln -s /path/to/redmine_submenus /path/to/redmine/plugins/
-
-# Test changes
-bundle exec rails server
-```
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 📞 Support
-
-- 🐛 **Issues**: [GitHub Issues](https://github.com/modoq/redmine_submenus/issues)
-- 💬 **Discussions**: [GitHub Discussions](https://github.com/modoq/redmine_submenus/discussions)
-- 📧 **Contact**: [Project Author](https://github.com/modoq)
-
----
-
-*"From breadcrumbs to portfolio boards - navigate your projects like never before."*
+[MIT License](LICENSE) — Copyright (c) 2026 Stefan Mischke
