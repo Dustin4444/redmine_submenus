@@ -40,7 +40,9 @@ class SubMacrosTest < ActiveSupport::TestCase
   private
 
   def render_macro(name, project, args)
-    view = ApplicationController.new.view_context
+    controller = ApplicationController.new
+    controller.request = ActionDispatch::TestRequest.create
+    view = controller.view_context
     view.extend(Redmine::WikiFormatting::Macros::Definitions)
     view.instance_variable_set(:@project, project)
     view.send("macro_#{name}", nil, args)
