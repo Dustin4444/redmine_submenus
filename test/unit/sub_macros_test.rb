@@ -2,6 +2,11 @@ require_relative '../test_helper'
 
 class SubMacrosTest < ActiveSupport::TestCase
   def setup
+    # Force-load sub_macros so macros are always registered in the test environment.
+    # Using `load` (not `require`) re-executes the file even if already required,
+    # ensuring macros are added to available_macros regardless of to_prepare ordering.
+    load File.join(File.dirname(__FILE__), '..', '..', 'lib', 'sub_macros.rb')
+
     @project = Project.create!(
       name:       "SubMenusTest-#{SecureRandom.hex(4)}",
       identifier: "submenus-test-#{SecureRandom.hex(4)}"
