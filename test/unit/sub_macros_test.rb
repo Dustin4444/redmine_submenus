@@ -13,12 +13,12 @@ class SubMacrosTest < ActiveSupport::TestCase
   end
 
   def test_subprojects_macro_is_registered
-    assert Redmine::WikiFormatting::Macros::Definitions.method_defined?("macro_subprojects"),
+    assert Redmine::WikiFormatting::Macros.available_macros.key?('subprojects'),
            "macro :subprojects should be registered"
   end
 
   def test_subpages_macro_is_registered
-    assert Redmine::WikiFormatting::Macros::Definitions.method_defined?("macro_subpages"),
+    assert Redmine::WikiFormatting::Macros.available_macros.key?('subpages'),
            "macro :subpages should be registered"
   end
 
